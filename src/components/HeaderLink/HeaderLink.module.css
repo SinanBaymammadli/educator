@@ -1,0 +1,20 @@
+.Link {
+  display: inline-flex;
+  height: 100%;
+  padding: 0 12px;
+  color: var(--main-text-color);
+  text-decoration: none;
+  border-bottom: 0 solid transparent;
+  transition: color 0.1s ease-in-out, border-bottom 0.1s ease-in-out; }
+  .Link:hover {
+    color: #000000;
+    border-bottom: 4px solid #000000; }
+
+.Text {
+  margin: 24px 0; }
+
+.Logo {
+  padding: 0 48px;
+  border-right: 1px solid var(--border-color); }
+  .Logo .Text {
+    font-weight: bold; }
