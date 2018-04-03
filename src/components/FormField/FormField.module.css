@@ -1,0 +1,29 @@
+.FormField {
+  margin: 0 0 24px 0; }
+
+.label {
+  display: block;
+  font-weight: bold; }
+
+.input {
+  display: block;
+  font-size: 18px;
+  width: 100%;
+  margin: 0;
+  padding: 5px 0;
+  border: none;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  outline: none; }
+  .input::placeholder {
+    color: var(--light-text-color); }
+
+.InvalidInput {
+  border-bottom-color: red; }
+
+.ValidInput {
+  border-bottom-color: #2ecc71; }
+
+.ErrorText {
+  margin: 6px 0 12px 0;
+  color: red; }

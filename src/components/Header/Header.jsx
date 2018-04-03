@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import style from "./Header.module.css";
 import HeaderLink from "../HeaderLink/HeaderLink";
 import SearchBar from "../SearchBar/SearchBar";
@@ -15,4 +16,4 @@ const Header = () => (
   </header>
 );
 
-export default Header;
+export default withRouter(Header);

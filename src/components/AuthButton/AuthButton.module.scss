@@ -1,0 +1,25 @@
+.AuthButton {
+  background-color: #2ecc71;
+  display: block;
+  width: 100%;
+  min-height: 59px;
+  color: #fff;
+  border: none;
+  box-shadow: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.1s ease-in-out;
+
+  &:hover {
+    background-color: #239954;
+  }
+}
+
+.Disabled {
+  cursor: not-allowed;
+  background-color: #e7e7e7;
+
+  &:hover {
+    background-color: #e7e7e7;
+  }
+}
