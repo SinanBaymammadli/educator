@@ -1,21 +1,34 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { BrowserRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
 import style from "./Root.module.css";
 import Router from "../Router/Router";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
-const Root = () => (
+const Root = ({ isLoggedIn, name }) => (
   <BrowserRouter>
     <div className={style.Root}>
-      <Header />
+      <Header isLoggedIn={isLoggedIn} username={name} />
       <main className={style.Main}>
-        <Router isLoggedIn={false} />
+        <Router isLoggedIn={isLoggedIn} />
       </main>
       <Footer />
     </div>
   </BrowserRouter>
 );
 
-export default Root;
+Root.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+  name: PropTypes.string
+};
+
+Root.defaultProps = {
+  name: ""
+};
+
+const mapStateToProps = state => state.auth;
+
+export default connect(mapStateToProps, null)(Root);

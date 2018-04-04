@@ -8,7 +8,7 @@ import Root from "./components/Root/Root";
 import registerServiceWorker from "./registerServiceWorker";
 
 import rootReducer from "./reducers/rootReducer";
-// import { logUserIn } from "./actions/auth";
+import { logUserIn } from "./actions/auth";
 import "./styles/index.css";
 
 const store = createStore(
@@ -19,9 +19,10 @@ const store = createStore(
   )
 );
 
-// if (localStorage.userToken) {
-//   store.dispatch(logUserIn());
-// }
+if (localStorage.userToken && localStorage.name) {
+  const name = localStorage.getItem("name");
+  store.dispatch(logUserIn({ user_display_name: name }));
+}
 
 ReactDOM.render(
   <Provider store={store}>
