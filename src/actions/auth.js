@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LOG_USER_IN, LOG_USER_OUT } from "./types";
+import { LOG_USER_IN, LOGIN_FAILED } from "./types";
 
 export function logUserIn(data) {
   return {
@@ -8,9 +8,10 @@ export function logUserIn(data) {
   };
 }
 
-export function logUserOut() {
+export function loginFailed(error) {
   return {
-    type: LOG_USER_OUT
+    type: LOGIN_FAILED,
+    error
   };
 }
 
@@ -46,19 +47,22 @@ export function login(data) {
       password: data.password
     };
 
-    axios.post("/wp-json/jwt-auth/v1/token", loginInfo).then(res => {
-      const { token, user_display_name } = res.data;
-      localStorage.setItem("userToken", token);
-      localStorage.setItem("name", user_display_name);
-      dispatch(logUserIn(res.data));
-    });
+    axios
+      .post("/wp-json/jwt-auth/v1/token", loginInfo)
+      .then(res => {
+        const { token, user_display_name } = res.data;
+        localStorage.setItem("userToken", token);
+        localStorage.setItem("name", user_display_name);
+        dispatch(logUserIn(res.data));
+      })
+      .catch(err => {
+        dispatch(loginFailed(err.response.data.message));
+      });
   };
 }
 
 export function logout() {
-  return dispatch => {
-    localStorage.removeItem("userToken");
-    localStorage.removeItem("name");
-    dispatch(logUserOut());
-  };
+  localStorage.removeItem("userToken");
+  localStorage.removeItem("name");
+  window.location.reload();
 }

@@ -7,18 +7,27 @@ import Login from "../../pages/Login/Login";
 import Signup from "../../pages/Signup/Signup";
 import Dashboard from "../../pages/Dashboard/Dashboard";
 
+let redirectUrlAfterLogin;
+
 const UserRoute = ({ component: Component, isLoggedIn, ...rest }) => (
   <Route
     {...rest}
-    render={props =>
-      isLoggedIn ? (
+    render={props => {
+      redirectUrlAfterLogin = props.location.pathname;
+      return isLoggedIn ? (
         <Component {...props} />
       ) : (
         <Redirect to={{ pathname: "/login" }} />
-      )
-    }
+      );
+    }}
   />
 );
+
+UserRoute.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired
+  }).isRequired
+};
 
 UserRoute.propTypes = {
   component: PropTypes.func.isRequired,
@@ -32,7 +41,7 @@ const GuestRoute = ({ component: Component, isLoggedIn, ...rest }) => (
       !isLoggedIn ? (
         <Component {...props} />
       ) : (
-        <Redirect to={{ pathname: "/dashboard" }} />
+        <Redirect to={{ pathname: redirectUrlAfterLogin || "/" }} />
       )
     }
   />

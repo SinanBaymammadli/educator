@@ -1,12 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 import { required, minLength, email } from "../../helpers/formValidations";
 import FormField from "../FormField/FormField";
 import AuthButton from "../AuthButton/AuthButton";
+import style from "./LoginForm.module.css";
 
-const Form = ({ handleSubmit, submitting, invalid, onSubmit }) => (
+const LoginForm = ({ handleSubmit, submitting, invalid, onSubmit, error }) => (
   <form onSubmit={handleSubmit(onSubmit)}>
+    {error && (
+      <div className={style.authError}>This credentials are invalid.</div>
+    )}
     <Field
       type="email"
       name="email"
@@ -29,16 +34,17 @@ const Form = ({ handleSubmit, submitting, invalid, onSubmit }) => (
   </form>
 );
 
-const SignupForm = reduxForm({
-  form: "login",
-  destroyOnUnmount: false
-})(Form);
-
-Form.propTypes = {
+LoginForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  invalid: PropTypes.bool.isRequired
+  invalid: PropTypes.bool.isRequired,
+  error: PropTypes.string.isRequired
 };
 
-export default SignupForm;
+const mapStateToProps = state => state.auth;
+
+export default reduxForm({
+  form: "login",
+  destroyOnUnmount: false
+})(connect(mapStateToProps)(LoginForm));

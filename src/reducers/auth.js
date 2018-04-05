@@ -1,8 +1,9 @@
-import { LOG_USER_IN, LOG_USER_OUT } from "../actions/types";
+import { LOG_USER_IN, LOGIN_FAILED } from "../actions/types";
 
 const initialState = {
   isLoggedIn: false,
-  name: null
+  name: null,
+  error: ""
 };
 
 export default (state = initialState, action = {}) => {
@@ -13,11 +14,10 @@ export default (state = initialState, action = {}) => {
         name: action.data.user_display_name,
         isLoggedIn: true
       };
-    case LOG_USER_OUT:
+    case LOGIN_FAILED:
       return {
         ...state,
-        isLoggedIn: false,
-        name: null
+        error: action.error
       };
     default:
       return state;
