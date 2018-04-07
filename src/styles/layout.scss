@@ -1,3 +1,4 @@
+@import "./variables.scss";
 html,
 body {
   background-color: var(--main-bg-color);
@@ -5,4 +6,27 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+.grid {
+  display: grid;
+  grid-gap: $grid-gap;
+}
+
+@each $breakpointName, $breakpointSize in $breakpoints {
+  @if ($breakpointSize == 0) {
+    @for $i from 1 through $grid-size {
+      .grid-#{$i} {
+        grid-template-columns: repeat(#{$i}, 1fr);
+      }
+    }
+  } @else {
+    @media (min-width: $breakpointSize) {
+      @for $i from 1 through $grid-size {
+        .grid-#{$breakpointName}-#{$i} {
+          grid-template-columns: repeat(#{$i}, 1fr);
+        }
+      }
+    }
+  }
 }

@@ -8,10 +8,10 @@ import Router from "../Router/Router";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
-const Root = ({ isLoggedIn, name }) => (
+const Root = ({ isLoggedIn, userDisplayName }) => (
   <BrowserRouter>
     <div className={style.Root}>
-      <Header isLoggedIn={isLoggedIn} username={name} />
+      <Header isLoggedIn={isLoggedIn} userDisplayName={userDisplayName} />
       <main className={style.Main}>
         <Router isLoggedIn={isLoggedIn} />
       </main>
@@ -22,11 +22,11 @@ const Root = ({ isLoggedIn, name }) => (
 
 Root.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
-  name: PropTypes.string
+  userDisplayName: PropTypes.string
 };
 
 Root.defaultProps = {
-  name: ""
+  userDisplayName: ""
 };
 
 const mapStateToProps = state => state.auth;

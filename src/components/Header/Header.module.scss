@@ -1,15 +1,86 @@
+@import "../../styles/variables.scss";
+
 .Header {
   position: sticky;
   top: 0;
   height: var(--header-tall-height);
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
   background-color: var(--main-bg-color);
+  z-index: 10;
 }
 
 .Nav {
-  display: flex;
+  display: none;
   align-items: center;
   height: 100%;
   width: 100%;
   padding: 0 12px 0 0;
+}
+
+.UserAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: none;
+  border: none;
+  background-image: linear-gradient(-180deg, #b2b2b2, #4a4a4a);
+  color: #fff;
+  font-weight: bold;
+  outline: none;
+  margin: 0 0 0 20px;
+
+  &:active,
+  &:focus {
+    box-shadow: 0 0 0 2px #b2b2b2, 0 0 0 4px #fff;
+  }
+}
+
+.UserMenuItem {
+  display: block;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  text-align: left;
+  width: 100%;
+  color: var(--main-text-color);
+  text-decoration: none;
+  margin: 5px 0;
+  border-left: 4px solid transparent;
+  padding: 4px 0 4px 20px;
+  transition: color 0.1s ease-in-out, border-left 0.1s ease-in-out;
+
+  &:hover {
+    color: #000000;
+    border-left: 4px solid #000000;
+  }
+}
+
+.UserMenuContent {
+  margin-top: 20px;
+}
+
+.LogoutButton {
+  color: var(--light-text-color);
+  border-top: 1px solid var(--border-color);
+  padding: 20px 24px;
+  margin: 0;
+  margin-top: 20px;
+}
+
+.NavMobile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+@include breakpoint(md) {
+  .NavMobile {
+    display: none;
+  }
+
+  .Nav {
+    display: flex;
+  }
 }

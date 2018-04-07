@@ -33,7 +33,7 @@ export function register(data) {
       axios.post("/wp-json/jwt-auth/v1/token", loginInfo).then(res => {
         const { token, user_display_name } = res.data;
         localStorage.setItem("userToken", token);
-        localStorage.setItem("name", user_display_name);
+        localStorage.setItem("userDisplayName", user_display_name);
         dispatch(logUserIn(res.data));
       });
     });
@@ -50,10 +50,17 @@ export function login(data) {
     axios
       .post("/wp-json/jwt-auth/v1/token", loginInfo)
       .then(res => {
-        const { token, user_display_name } = res.data;
+        const { token, user_display_name, user_nicename } = res.data;
         localStorage.setItem("userToken", token);
-        localStorage.setItem("name", user_display_name);
+        localStorage.setItem("userDisplayName", user_display_name);
+        axios.defaults.headers.post.Authorization = `Bearer ${token}`;
         dispatch(logUserIn(res.data));
+
+        axios
+          .get(`/wp-json/wp/v2/users?slug=${user_nicename}`)
+          .then(response => {
+            localStorage.setItem("userId", response.data[0].id);
+          });
       })
       .catch(err => {
         dispatch(loginFailed(err.response.data.message));
@@ -63,6 +70,7 @@ export function login(data) {
 
 export function logout() {
   localStorage.removeItem("userToken");
-  localStorage.removeItem("name");
+  localStorage.removeItem("userDisplayName");
+  localStorage.removeItem("userId");
   window.location.reload();
 }

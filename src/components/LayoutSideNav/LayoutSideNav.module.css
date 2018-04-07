@@ -1,0 +1,18 @@
+.LayoutSideNav {
+  padding: 100px 0 100px 15vw;
+  border-right: 1px solid var(--border-color); }
+
+.LayoutSideNavItem {
+  text-decoration: none;
+  display: block;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  padding: 5px 30px 5px 0;
+  margin-bottom: 14px;
+  color: var(--main-text-color);
+  border-right: 3px solid transparent;
+  transition: color 0.1s ease-in-out, border-right 0.1s ease-in-out; }
+  .LayoutSideNavItem:hover, .LayoutSideNavItem:global(.active) {
+    color: #000000;
+    border-right: 3px solid #000000; }

@@ -5,7 +5,7 @@ import style from "./Footer.module.css";
 const Footer = () => (
   <footer className={style.Wrapper}>
     <div className={style.Container}>
-      <div className={style.Grid}>
+      <div className={`&{style.Grid} grid grid-1 grid-sm-2 grid-md-4`}>
         <ul className={style.List}>
           <li className={style.ListItem}>
             <h3>Get started</h3>

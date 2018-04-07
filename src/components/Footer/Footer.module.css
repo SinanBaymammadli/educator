@@ -8,9 +8,7 @@
   margin: 0 auto; }
 
 .Grid {
-  display: grid;
-  grid-gap: 24px;
-  grid-template-columns: repeat(4, 1fr); }
+  grid-gap: 24px; }
 
 .List {
   margin: 0 0 24px 0;

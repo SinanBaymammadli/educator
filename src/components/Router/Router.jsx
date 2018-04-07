@@ -2,10 +2,50 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Route, Switch, Redirect } from "react-router-dom";
 
-import Home from "../../pages/Home/Home";
-import Login from "../../pages/Login/Login";
-import Signup from "../../pages/Signup/Signup";
-import Dashboard from "../../pages/Dashboard/Dashboard";
+function asyncComponent(importComponent) {
+  class AsyncComponent extends React.Component {
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        component: null
+      };
+    }
+
+    async componentDidMount() {
+      const { default: component } = await importComponent();
+      /* eslint-disable */
+      this.setState({
+        component
+      });
+    }
+
+    render() {
+      const C = this.state.component;
+
+      return C ? <C {...this.props} /> : null;
+    }
+  }
+
+  return AsyncComponent;
+}
+
+const Home = asyncComponent(() => import("../../pages/Home/Home"));
+const Login = asyncComponent(() => import("../../pages/Login/Login"));
+const Signup = asyncComponent(() => import("../../pages/Signup/Signup"));
+const NewCourse = asyncComponent(() => import("../../pages/Course/NewCourse"));
+const Email = asyncComponent(() => import("../../pages/Account/Email"));
+const Password = asyncComponent(() => import("../../pages/Account/Password"));
+const ProfileSettings = asyncComponent(() =>
+  import("../../pages/ProfileSettings/ProfileSettings")
+);
+const MyCourses = asyncComponent(() =>
+  import("../../pages/MyCourses/MyCourses")
+);
+const Search = asyncComponent(() => import("../../pages/Search/Search"));
+const CourseDetailPage = asyncComponent(() =>
+  import("../../pages/CourseDetailPage/CourseDetailPage")
+);
 
 let redirectUrlAfterLogin;
 
@@ -55,12 +95,36 @@ GuestRoute.propTypes = {
 const Router = ({ isLoggedIn }) => (
   <Switch>
     <Route path="/" exact component={Home} />
+    <Route path="/search" component={Search} />
+    <Route path="/c/:id" component={CourseDetailPage} />
     <GuestRoute isLoggedIn={isLoggedIn} path="/login" component={Login} />
     <GuestRoute isLoggedIn={isLoggedIn} path="/signup" component={Signup} />
     <UserRoute
       isLoggedIn={isLoggedIn}
-      path="/dashboard"
-      component={Dashboard}
+      path="/course/new"
+      component={NewCourse}
+    />
+    <UserRoute
+      isLoggedIn={isLoggedIn}
+      path="/account/email"
+      component={Email}
+    />
+    <UserRoute
+      isLoggedIn={isLoggedIn}
+      path="/account/password"
+      component={Password}
+    />
+
+    <UserRoute
+      isLoggedIn={isLoggedIn}
+      path="/profile-settings"
+      component={ProfileSettings}
+    />
+
+    <UserRoute
+      isLoggedIn={isLoggedIn}
+      path="/my-courses"
+      component={MyCourses}
     />
   </Switch>
 );

@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { register } from "../../actions/auth";
 import SignupForm from "../../components/SignupForm/SignupForm";
 import style from "./Signup.module.css";
+import "../Login/auth.css";
 
 const Signup = ({ signup }) => (
   <div className={style.AuthPage}>

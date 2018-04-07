@@ -19,9 +19,9 @@ const store = createStore(
   )
 );
 
-if (localStorage.userToken && localStorage.name) {
-  const name = localStorage.getItem("name");
-  store.dispatch(logUserIn({ user_display_name: name }));
+if (localStorage.userToken && localStorage.userDisplayName) {
+  const userDisplayName = localStorage.getItem("userDisplayName");
+  store.dispatch(logUserIn({ user_display_name: userDisplayName }));
 }
 
 ReactDOM.render(
